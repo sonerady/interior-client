@@ -1,0 +1,868 @@
+/* Ana container stil */
+.transformer-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sol taraftaki girdi bölümü */
+.input-section {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px 20px 130px; /* Alt padding'i artırıyorum - iki buton için */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+  max-height: 100%;
+  position: relative;
+}
+
+/* Sağ taraftaki çıktı bölümü */
+.output-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* Üst sekme butonları */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 15px;
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  border: none;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+  flex: 1;
+  justify-content: center;
+}
+
+.tab-btn:hover {
+  background-color: #e6e6e6;
+}
+
+.tab-btn.active {
+  background-color: #3498db;
+  color: white;
+  font-weight: 500;
+}
+
+.tab-icon {
+  font-size: 16px;
+}
+
+/* Upload butonu */
+.upload-section {
+  display: flex;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 15px;
+  color: #3498db;
+  border: 1px dashed #3498db;
+  font-weight: 500;
+  width: 100%;
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.08);
+}
+
+.upload-btn:hover {
+  background-color: rgba(52, 152, 219, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.12);
+}
+
+.button-icon {
+  font-size: 18px;
+  color: #3498db;
+}
+
+.thumbnail-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+  width: 100%;
+  height: 300px;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Prompt alanı */
+.prompt-section {
+  margin-bottom: 15px;
+}
+
+.prompt-section label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
+  font-weight: 500;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: none;
+  font-family: inherit;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.2s;
+}
+
+textarea:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Ayarlar bölümü */
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.setting {
+  margin-bottom: 5px;
+}
+
+.setting label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
+  font-weight: 500;
+}
+
+.style-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+.style-select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Buton Grubu */
+.button-group {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  width: calc(100% - 40px);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+/* Görsel oluşturma butonu */
+.generate-btn {
+  padding: 16px 30px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
+  flex: 1;
+}
+
+.generate-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.25);
+}
+
+.generate-btn:disabled {
+  background-color: #a3cef1;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Mask oluşturma butonu */
+.mask-btn {
+  padding: 16px 20px;
+  background-color: #9b59b6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(155, 89, 182, 0.2);
+  flex: 1;
+}
+
+.mask-btn:hover {
+  background-color: #8e44ad;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(155, 89, 182, 0.25);
+}
+
+.mask-btn:disabled {
+  background-color: #d2b4de;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Mask header ve container */
+.mask-header {
+  margin-top: 20px;
+  border-top: 1px solid #eaeaea;
+  padding-top: 20px;
+}
+
+.mask-container {
+  background-color: #f5f5f5;
+}
+
+/* Çıktı bölümü başlığı */
+.output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+  background-color: #ffffff;
+}
+
+.output-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #f0f0f0;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #444;
+}
+
+.download-btn:hover {
+  background-color: #e5e5e5;
+}
+
+/* Oluşturulan görsel container */
+.generated-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin: 20px;
+  position: relative;
+}
+
+.generated-image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.generated-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Placeholder output */
+.placeholder-output {
+  color: #888;
+  font-size: 16px;
+  text-align: center;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  border: 2px dashed #e0e0e0;
+  border-radius: 8px;
+  width: 80%;
+  margin: 0 auto;
+  background-color: #fafafa;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .transformer-container {
+    flex-direction: column;
+  }
+}
+
+/* URL input alanları */
+.url-input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.url-input {
+  width: 100%;
+}
+
+.url-input label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #555;
+  font-weight: 500;
+}
+
+.url-input-field {
+  display: flex;
+  width: 100%;
+}
+
+.url-input-field input {
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #e0e0e0;
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.url-input-field input:focus {
+  border-color: #3498db;
+}
+
+.url-load-btn {
+  background-color: #3498db;
+  color: white;
+  padding: 0 15px;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.url-load-btn:hover {
+  background-color: #2980b9;
+}
+
+/* API generate button */
+.api-generate-btn {
+  padding: 16px 30px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2);
+  width: calc(100% - 40px);
+  position: absolute;
+  bottom: 75px;
+  left: 20px;
+  z-index: 10;
+}
+
+.api-generate-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.25);
+}
+
+.api-generate-btn:disabled {
+  background-color: #f1a9a0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* API response display */
+.api-response {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: auto;
+  max-height: 300px;
+}
+
+.api-response h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.api-response pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 12px;
+  color: #555;
+  font-family: monospace;
+}
+
+/* Enhancement related styles */
+.enhance-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 120, 255, 0.8);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.enhance-btn:hover {
+  background: rgba(0, 120, 255, 1);
+}
+
+.enhance-btn:disabled {
+  background: rgba(100, 100, 100, 0.5);
+  cursor: not-allowed;
+}
+
+.enhancement-status {
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(0, 120, 255, 0.1);
+  border-radius: 4px;
+  border-left: 3px solid rgba(0, 120, 255, 0.8);
+}
+
+.enhanced-image-info {
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(56, 204, 77, 0.1);
+  border-radius: 4px;
+  border-left: 3px solid rgba(56, 204, 77, 0.8);
+}
+
+.enhanced-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(56, 204, 77, 0.8);
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Modal styles */
+.image-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.image-modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 90vw;
+  max-height: 90vh;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.modal-image {
+  display: block;
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close-btn:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* Loading animation */
+.processing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  gap: 20px;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header buttons container */
+.header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Compare button */
+.compare-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #9b59b6;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.compare-btn:hover {
+  background-color: #8e44ad;
+}
+
+/* Modal toggle button */
+.modal-toggle-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.modal-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* Compare container */
+.compare-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+/* Make sure ReactCompareImage works properly */
+.compare-container > div {
+  width: 100% !important;
+  max-width: 100% !important;
+  max-height: 80vh !important;
+}
+
+.compare-container img {
+  max-width: 100% !important;
+  max-height: 80vh !important;
+  object-fit: contain !important;
+}
+
+/* Modal size adjustments for comparison view */
+.image-modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 90vw;
+  max-height: 90vh;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Prompt header with button */
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.generate-prompt-btn {
+  padding: 8px 12px;
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.generate-prompt-btn:hover {
+  background-color: #7d3c98;
+}
+
+.generate-prompt-btn:disabled {
+  background-color: #d2b4de;
+  cursor: not-allowed;
+}
+
+/* Yükleme ilerleme çubuğu */
+.upload-progress {
+  margin: 15px 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.3s ease;
+}
+
+/* URL gösterimi */
+.uploaded-urls {
+  margin: 15px 0;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.url-display {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.url-display:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.url-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.url-value {
+  display: flex;
+  width: 100%;
+}
+
+.url-value input {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  background-color: #f3f3f3;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.url-value .copy-btn {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.url-value .copy-btn:hover {
+  background-color: #0d8aee;
+}
+
+/* Kullanım yönergeleri */
+.usage-instructions {
+  margin: 15px 0;
+  padding: 15px;
+  background-color: #e8f4fd;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.usage-instructions ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.usage-instructions li {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.usage-instructions li:last-child {
+  margin-bottom: 0;
+}
+
+.usage-instructions strong {
+  color: #2980b9;
+}

@@ -1,0 +1,95 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.App {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.powered-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background-color: #f0f0f0;
+  border-radius: 30px;
+  font-size: 14px;
+  color: #333;
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 10px 0;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1.1rem;
+  margin-top: 0;
+  font-weight: 400;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
