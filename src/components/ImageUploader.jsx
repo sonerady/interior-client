@@ -38,12 +38,12 @@ const ImageUploader = () => {
 
   const handleGenerate = async () => {
     if (!uploadedImage) {
-      alert("Lütfen önce bir resim yükleyin");
+      alert("Please upload an image first");
       return;
     }
 
     if (!prompt.trim()) {
-      alert("Lütfen bir prompt girin");
+      alert("Please enter a prompt");
       return;
     }
 
@@ -51,18 +51,18 @@ const ImageUploader = () => {
       setIsGenerating(true);
       setError(null);
 
-      // Maske resmi oluşturmak için boş bir görüntü kullanabilirsiniz
-      // Gerçek uygulamada maske oluşturma mantığını ekleyebilirsiniz
-      // Şimdilik aynı resmi kullanıyoruz
+      // You can use an empty image to create a mask
+      // You can add mask creation logic in a real application
+      // For now, we're using the same image
       const maskUrl = uploadedImage;
 
-      // Görüntü boyutunu kontrol et (sorun teşhisi için)
-      console.log("Görüntü boyutu:", uploadedImage.length, "karakter");
+      // Check image size (for troubleshooting)
+      console.log("Image size:", uploadedImage.length, "characters");
       if (uploadedImage.length > 1000000) {
-        console.warn("Görüntü çok büyük, API sorunlarına neden olabilir");
+        console.warn("Image is too large, may cause API issues");
       }
 
-      // API isteği için verileri hazırla
+      // Prepare data for API request
       const requestData = {
         imageUrl: uploadedImage,
         maskUrl: maskUrl,
@@ -74,17 +74,17 @@ const ImageUploader = () => {
         prompt_upsampling: false,
       };
 
-      console.log("API isteği gönderiliyor:", requestData);
+      console.log("Sending API request:", requestData);
 
-      // API tabanı URL'sini belirle
+      // Set API base URL
       const apiBaseUrl = "https://interior-server-imgq.onrender.com";
 
-      // API URL'sini oluştur
-      const apiUrl = `${apiBaseUrl}/api/enhance-image`;
+      // Create API URL
+      const apiUrl = `${apiBaseUrl}/api/create-redesign`;
 
       console.log("API endpoint URL:", apiUrl);
 
-      // API'ye istek gönder
+      // Send request to API
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -93,68 +93,62 @@ const ImageUploader = () => {
         body: JSON.stringify(requestData),
       });
 
-      console.log("API yanıt durumu:", response.status, response.statusText);
+      console.log("API response status:", response.status, response.statusText);
 
-      // Yanıt içeriğini ham metin olarak al
+      // Get response content as raw text
       const responseText = await response.text();
-      console.log("API yanıt içeriği (ham):", responseText);
+      console.log("API response content (raw):", responseText);
 
-      // Boş yanıt kontrolü
+      // Check for empty response
       if (!responseText || responseText.trim() === "") {
-        throw new Error("API yanıtı boş veya geçersiz");
+        throw new Error("API response is empty or invalid");
       }
 
-      // JSON parse işlemi
+      // JSON parsing
       let result;
       try {
         result = JSON.parse(responseText);
       } catch (parseError) {
-        console.error("JSON parse hatası:", parseError);
-        throw new Error(`JSON ayrıştırma hatası: ${parseError.message}`);
+        console.error("JSON parse error:", parseError);
+        throw new Error(`JSON parsing error: ${parseError.message}`);
       }
 
-      // API yanıtını kontrol et
+      // Check API response
       if (!result.success) {
-        throw new Error(result.error || "API yanıtında bir hata var");
+        throw new Error(result.error || "There is an error in API response");
       }
 
-      console.log("İşlem başarılı! API yanıtı:", result);
+      console.log("Process successful! API response:", result);
 
-      // Oluşturulan görüntü URL'sini al
-      // API sonuç URL'sini doğru şekilde almak için kontroller
+      // Get generated image URL
+      // Checks to get the correct API result URL
       let generatedImageUrl;
       if (result.data.api_response && result.data.api_response.output) {
-        // Doğrudan API yanıtında çıktı varsa
+        // If output exists directly in API response
         generatedImageUrl = Array.isArray(result.data.api_response.output)
           ? result.data.api_response.output[0]
           : result.data.api_response.output;
       } else if (result.data.get_url) {
-        // Henüz hazır değilse ve get_url varsa
-        console.log(
-          "Görüntü henüz hazır değil, get_url kullanılıyor:",
-          result.data.get_url
-        );
+        // If not ready yet and get_url exists
+        console.log("Image not ready yet, using get_url:", result.data.get_url);
         generatedImageUrl = result.data.get_url;
       } else if (result.data.generated_image_url) {
-        // generated_image_url alanı varsa
+        // If generated_image_url field exists
         generatedImageUrl = result.data.generated_image_url;
       } else {
-        console.warn("Sonuç URL'si bulunamadı, tam API yanıtı:", result);
-        throw new Error("Oluşturulan görüntü bulunamadı.");
+        console.warn("Result URL not found, full API response:", result);
+        throw new Error("Generated image not found.");
       }
 
-      console.log("Elde edilen görüntü URL'si:", generatedImageUrl);
+      console.log("Obtained image URL:", generatedImageUrl);
       setGeneratedImage(generatedImageUrl);
 
-      // Enhanced prompt bilgisini loglama
+      // Log enhanced prompt information
       if (result.data.enhanced_prompt) {
-        console.log(
-          "Gemini tarafından geliştirilmiş prompt:",
-          result.data.enhanced_prompt
-        );
+        console.log("Prompt enhanced by Gemini:", result.data.enhanced_prompt);
       }
     } catch (err) {
-      console.error("Görüntü oluşturma hatası:", err);
+      console.error("Image generation error:", err);
       setError(err.message);
     } finally {
       setIsGenerating(false);
@@ -184,7 +178,7 @@ const ImageUploader = () => {
   return (
     <div className="image-uploader-container">
       <div className="upload-section">
-        <h2>Resim Dönüştürme</h2>
+        <h2>Image Transformation</h2>
 
         <div className="upload-area">
           <input
@@ -198,20 +192,20 @@ const ImageUploader = () => {
 
           <button className="upload-button" onClick={handleUploadButtonClick}>
             <FiUpload className="icon" />
-            Resim Yükle
+            Upload Image
           </button>
 
           {uploadedImage && (
             <div className="preview-container">
               <div className="preview-header">
-                <p>Yüklenen Resim</p>
+                <p>Uploaded Image</p>
                 <button className="reset-button" onClick={handleReset}>
                   <FiRefreshCcw className="icon-small" />
                 </button>
               </div>
               <img
                 src={uploadedImage}
-                alt="Yüklenen resim"
+                alt="Uploaded image"
                 className="preview-image"
               />
             </div>
@@ -219,10 +213,10 @@ const ImageUploader = () => {
         </div>
 
         <div className="prompt-area">
-          <div className="input-label">Dönüşüm İçin Talimatlar:</div>
+          <div className="input-label">Transformation Instructions:</div>
           <textarea
             className="prompt-input"
-            placeholder="Resiminizin nasıl dönüştürülmesini istediğinizi detaylı olarak açıklayın..."
+            placeholder="Describe in detail how you want your image to be transformed..."
             value={prompt}
             onChange={handlePromptChange}
           />
@@ -235,12 +229,12 @@ const ImageUploader = () => {
             {isGenerating ? (
               <>
                 <div className="spinner"></div>
-                <span>Oluşturuluyor...</span>
+                <span>Generating...</span>
               </>
             ) : (
               <>
                 <FiSend className="icon" />
-                <span>Oluştur</span>
+                <span>Generate</span>
               </>
             )}
           </button>
@@ -248,34 +242,31 @@ const ImageUploader = () => {
       </div>
 
       <div className="result-section">
-        <h3>Oluşturulan Görsel</h3>
+        <h3>Generated Image</h3>
         {isGenerating ? (
           <div className="loading-indicator">
             <div className="spinner"></div>
-            <span>Resim oluşturuluyor...</span>
+            <span>Creating image...</span>
           </div>
         ) : error ? (
           <div className="error-container">
             <p className="error-message">{error}</p>
             <button className="retry-button" onClick={handleGenerate}>
               <FiRefreshCcw className="icon" />
-              <span>Tekrar Dene</span>
+              <span>Try Again</span>
             </button>
           </div>
         ) : generatedImage ? (
           <div className="generated-image-container">
-            <div
-              className="image-wrapper thumbnail-wrapper"
-              onClick={openImageModal}
-            >
+            <div className="image-wrapper thumbnail-wrapper">
               <img
                 src={generatedImage}
-                alt="Oluşturulan resim"
+                alt="Generated image"
                 className="generated-image thumbnail"
+                onClick={openImageModal}
               />
               <div className="image-overlay">
                 <div className="overlay-content">
-                  <FiMaximize className="maximize-icon" />
                   <p className="prompt-used">{prompt}</p>
                   <button
                     className="change-image-button"
@@ -285,7 +276,7 @@ const ImageUploader = () => {
                     }}
                   >
                     <FiEdit className="icon" />
-                    <span>Değiştir</span>
+                    <span>Change</span>
                   </button>
                 </div>
               </div>
@@ -294,7 +285,7 @@ const ImageUploader = () => {
         ) : (
           <div className="placeholder">
             <FiImage className="placeholder-icon" />
-            <p>Resim oluşturmak için "Oluştur" butonuna tıklayın</p>
+            <p>Click the "Generate" button to create an image</p>
           </div>
         )}
       </div>
@@ -311,7 +302,7 @@ const ImageUploader = () => {
             </button>
             <img
               src={generatedImage}
-              alt="Oluşturulan resim"
+              alt="Generated image"
               className="modal-image"
             />
             <p className="modal-prompt">{prompt}</p>
