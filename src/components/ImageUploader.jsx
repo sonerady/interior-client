@@ -19,13 +19,36 @@ const ImageUploader = () => {
   const [showModal, setShowModal] = useState(false);
   const fileInputRef = useRef(null);
 
+  // Görüntüyü küçültmek için yardımcı fonksiyon
+  const resizeImage = (dataUrl, callback) => {
+    const image = new Image();
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      const width = Math.floor(image.width / 3);
+      const height = Math.floor(image.height / 3);
+
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(image, 0, 0, width, height);
+
+      const resizedImage = canvas.toDataURL("image/jpeg", 0.9);
+      callback(resizedImage);
+    };
+    image.src = dataUrl;
+  };
+
   const handleImageUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const reader = new FileReader();
 
       reader.onload = (event) => {
-        setUploadedImage(event.target.result);
+        // Orijinal görüntüyü yükledikten sonra boyutunu küçült
+        resizeImage(event.target.result, (resizedImage) => {
+          setUploadedImage(resizedImage);
+        });
       };
 
       reader.readAsDataURL(file);
