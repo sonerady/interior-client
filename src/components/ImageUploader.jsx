@@ -23,6 +23,12 @@ const ImageUploader = () => {
   const resizeImage = (dataUrl, callback) => {
     const image = new Image();
     image.onload = () => {
+      // Genişlik 1000 pikselden küçükse boyutlandırma yapma
+      if (image.width <= 1000) {
+        callback(dataUrl);
+        return;
+      }
+
       const canvas = document.createElement("canvas");
       const width = Math.floor(image.width / 3);
       const height = Math.floor(image.height / 3);
